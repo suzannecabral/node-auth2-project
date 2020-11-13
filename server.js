@@ -6,8 +6,19 @@ const express = require('express');
 //new server
 const server = express();
 
+
+//my default logger function
+const logger = (req,res,next) => {
+  const ts = new Date();
+  console.log(`-------------------`);
+  console.log(`[${ts.toLocaleTimeString()}] ${req.method} ${req.url} `);
+  next();
+}
+
+
 //use middleware
 server.use(express.json());
+server.use(logger);
 //use routers
 
 
