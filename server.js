@@ -1,7 +1,7 @@
 //imports
 const express = require('express');
 //import routers
-
+const userRouter = require('./userRouter');
 
 //new server
 const server = express();
@@ -20,7 +20,7 @@ const logger = (req,res,next) => {
 server.use(express.json());
 server.use(logger);
 //use routers
-
+server.use('/api', userRouter);
 
 //default endpoint
 server.get('/', (req,res,next)=>{
