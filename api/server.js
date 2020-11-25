@@ -1,7 +1,7 @@
 //imports
 const express = require('express');
 //import routers
-const userRouter = require('./userRouter');
+const userRouter = require('./users/userRouter');
 
 //new server
 const server = express();
