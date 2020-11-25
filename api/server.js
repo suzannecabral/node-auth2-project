@@ -1,6 +1,5 @@
-//imports
+
 const express = require('express');
-//import routers
 const userRouter = require('./users/userRouter');
 
 //new server
