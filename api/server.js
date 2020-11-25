@@ -23,7 +23,7 @@ server.use(logger);
 server.use('/api', userRouter);
 
 //default endpoint
-server.get('/', (req,res,next)=>{
+server.get('/', (req,res)=>{
   res.status(200).json({message:`The server is running, better go catch it`});
 });
 

@@ -69,5 +69,22 @@ router.get('/', (req, res, next)=>{
 });
 
 
+//jwt create
+
+function makeJwt(user){
+
+  const payload = {
+
+  }
+  const options = {
+    expiresIn:'1h'
+  };
+  return jwt.sign(payload, jwtSecret, options);
+  //jwtSecret is not yet defined
+  //this should be triggering the linter
+  
+}
+
+
 //export
 module.exports = router;
