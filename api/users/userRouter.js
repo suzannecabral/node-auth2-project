@@ -3,8 +3,7 @@ const Users = require('./userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const {jwtSecret}=require();
-require('dotenv').config();
+const Secrets = require('../secrets');
 
 //new router
 const router = express.Router();
@@ -65,9 +64,17 @@ router.get('/userlist', (req, res)=>{
 
 });
 
+// //GET: /api/envtest ----------------
+// router.get('/envtest',(req,res)=>{
+//   const envTest = Secrets;
+//   const envPort = Secrets.port;
+//   console.log(envTest);
+//   res.status(200).json(Secrets.jwtSecret);
+// });
+
 
 //default endpoint------------------
-router.get('/', (req, res, next)=>{
+router.get('/', (req, res)=>{
   res.status(200).json('Welcome to the user list api, please use an endpoint');
 });
 
