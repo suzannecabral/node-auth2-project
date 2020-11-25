@@ -1,7 +1,7 @@
-//import modules
 const express = require('express');
-//import db model
 const Users = require('./userModel');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 //new router
 const router = express.Router();
@@ -12,16 +12,16 @@ const router = express.Router();
 //POST: /api/login -----------------
 router.post('/login', (req, res)=>{
   
-  const {username, password} = req.body;
+  const pendingUser = req.body;
+  Users.getByName(pendingUser.username)
+    .then(dbUser =>{
+      if(dbUser && bcrypt.compareSync(pendingUser.password, dbUser.password)){
+        //create jwt here:
 
-  Users.getByName(username)
-    .then(user =>{
-      //match user auth
-
-      //if good, then set auth status
-
-      //then welcome user with status message
-      res.status(200).json({ message: `Welcome, ${username}!` });
+        res.status(200).json({ message: `Welcome, ${dbUser.username}!` });
+      }else{
+        res.status(401).json({message:`Invalid credentials`});
+      }
     })
     .catch(err =>{
       console.log(err);
@@ -32,8 +32,11 @@ router.post('/login', (req, res)=>{
 
 //POST: /api/register --------------
 router.post('/register', (req, res)=>{
+  const newUser = req.body;  
+  const hash = bcrypt.hashSync(newUser.password, 12);
+  newUser.password = hash;
 
-  Users.addNew(req.body)
+  Users.addNew(newUser)
     .then(user=>{
       res.status(201).json(user);
     })
